@@ -1,18 +1,21 @@
-from telethon import TelegramClient
-from telethon.tl.functions.contacts import ResolveUsernameRequest
-from telethon.tl.functions.channels import GetMessagesRequest
-from telethon.tl.functions.messages import GetHistoryRequest, ReadHistoryRequest
-from telethon.tl.types import InputPeerChannel
+from telethon import TelegramClient, sync, events
 
-api_id = 702976                  # API ID
-api_hash = "49681e1bbc95e5e01250ec1537ae3185"              # API Hash
-phone_number = "+375293164122"    # Номер телефона аккаунта, с которого будет выполняться код
+print('Started')
 
+api_id = 1111                  # API ID
+api_hash = "dfdfsdfsdfsd"              # API Hash
+phone_number = "number"    # Номер телефона аккаунта, с которого будет выполняться код
+username = 'ru_modx' # канал @telegram\
 client = TelegramClient('your_account', api_id, api_hash) #не может быть одной и той же сессии с одним именем
-await client.connect()
 
-username = 'ru_modx' # канал @telegram
-dp = client.get_entity(username)
-messages = client.get_messages(username,100,search='ловата')
-print(messages)
+@client.on(events.NewMessage(chats=('ru_modx')))
+async def normal_handler(event):
+    if "ловата" in event.message.to_dict()['message'] or "october" in event.message.to_dict()['message']: #обычно ждем тебя после этих мсг
+        print('newmsg from ru_modx: ' + event.message.to_dict()['message'])
+
+
+client.start()
+client.run_until_disconnected()
+
+
 
