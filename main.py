@@ -8,7 +8,7 @@ phone_number = "number"    # Номер телефона аккаунта, с к
 username = 'ru_modx' # канал @telegram\
 client = TelegramClient('your_account', api_id, api_hash) #не может быть одной и той же сессии с одним именем
 
-@client.on(events.NewMessage(chats=('ru_modx')))
+@client.on(events.NewMessage(chats=(username)))
 async def normal_handler(event):
     if "ловата" in event.message.to_dict()['message'] or "october" in event.message.to_dict()['message']: #обычно ждем тебя после этих мсг
         print('newmsg from ru_modx: ' + event.message.to_dict()['message'])
